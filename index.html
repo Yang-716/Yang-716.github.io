@@ -1,68 +1,377 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>杨忻然简历</title>
     <style>
-      h1,.center{
-        text-align:center;
+      :root {
+        --bg-deep: #0f1020;
+        --bg-card: rgba(28, 30, 58, 0.65);
+        --accent: #7e7edb;
+        --accent-glow: rgba(126, 126, 219, 0.45);
+        --text: #e8e9f2;
+        --text-muted: #a5a7c0;
+        --header-h: 64px;
+        --radius: 14px;
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
       }
-      a {
-        text-decoration:none;
+
+      *, *::before, *::after {
+        box-sizing: border-box;
       }
-      h3 {
-       background-color: rgb(126, 126, 219);
-       color:white; 
-       line-height: 40px;
-       padding-left:10px;
-       margin-top: 30px;
-       border-radius: 10px;
-       box-shadow: 10px 10px 10px #000000;
+
+      html {
+        scroll-behavior: smooth;
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding-top: var(--header-h);
+        font-family: "Segoe UI", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(ellipse 120% 80% at 50% -20%, var(--accent-glow), transparent 50%),
+          radial-gradient(ellipse 80% 50% at 100% 50%, rgba(99, 102, 241, 0.12), transparent),
+          radial-gradient(ellipse 60% 40% at 0% 80%, rgba(236, 72, 153, 0.08), transparent),
+          var(--bg-deep);
+        background-attachment: fixed;
+      }
+
+      /* —— 固定顶栏 —— */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--header-h);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(1rem, 4vw, 2rem);
+        background: rgba(15, 16, 32, 0.72);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(126, 126, 219, 0.2);
+        animation: header-slide 0.6s var(--ease-out) both;
+      }
+
+      @keyframes header-slide {
+        from {
+          opacity: 0;
+          transform: translateY(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .brand {
+        font-weight: 700;
+        font-size: 1.15rem;
+        letter-spacing: 0.06em;
+        background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .site-nav {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .site-nav a {
+        text-decoration: none;
+        color: var(--text-muted);
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        border: 1px solid transparent;
+        transition:
+          color 0.25s var(--ease-out),
+          background 0.25s var(--ease-out),
+          border-color 0.25s var(--ease-out),
+          transform 0.25s var(--ease-out),
+          box-shadow 0.25s var(--ease-out);
+      }
+
+      .site-nav a:hover {
+        color: var(--text);
+        background: rgba(126, 126, 219, 0.15);
+        border-color: rgba(126, 126, 219, 0.35);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .site-nav a:active {
+        transform: translateY(0);
+      }
+
+      /* —— 主布局 —— */
       .container {
-        width: 960px;
+        width: min(960px, 92vw);
         margin: 0 auto;
+        padding: clamp(1.25rem, 4vw, 2.5rem) 0 clamp(3rem, 8vw, 5rem);
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: clamp(2rem, 5vw, 3rem);
+        animation: fade-up 0.75s var(--ease-out) 0.1s both;
+      }
+
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        margin: 0 0 1rem;
+        font-size: clamp(1.75rem, 5vw, 2.35rem);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .avatar-wrap {
+        display: inline-block;
+        padding: 4px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #ec4899, #6366f1);
+        animation: avatar-ring 4s ease-in-out infinite;
+      }
+
+      @keyframes avatar-ring {
+        0%, 100% { filter: hue-rotate(0deg); }
+        50% { filter: hue-rotate(25deg); }
+      }
+
+      .avatar-wrap img {
+        display: block;
+        width: clamp(140px, 36vw, 200px);
+        height: auto;
+        border-radius: 50%;
+        border: 3px solid var(--bg-deep);
+        vertical-align: middle;
+        transition: transform 0.4s var(--ease-out);
+      }
+
+      .avatar-wrap:hover img {
+        transform: scale(1.04);
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid rgba(126, 126, 219, 0.18);
+        border-radius: var(--radius);
+        padding: clamp(1rem, 3vw, 1.5rem);
+        margin-bottom: 1.25rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+        transition:
+          border-color 0.35s var(--ease-out),
+          box-shadow 0.35s var(--ease-out),
+          transform 0.35s var(--ease-out);
+        animation: fade-up 0.75s var(--ease-out) both;
+      }
+
+      .card:nth-of-type(1) { animation-delay: 0.2s; }
+      .card:nth-of-type(2) { animation-delay: 0.28s; }
+      .card:nth-of-type(3) { animation-delay: 0.36s; }
+      .card:nth-of-type(4) { animation-delay: 0.44s; }
+
+      .card:hover {
+        border-color: rgba(126, 126, 219, 0.4);
+        box-shadow: 0 16px 48px rgba(126, 126, 219, 0.12);
+        transform: translateY(-3px);
+      }
+
+      hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(126, 126, 219, 0.35), transparent);
+        margin: 1rem 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.25rem;
+        color: var(--text-muted);
+        line-height: 1.75;
+      }
+
+      ul li b {
+        color: var(--text);
+      }
+
+      h3 {
+        margin: 0 0 0.75rem;
+        background: linear-gradient(135deg, var(--accent) 0%, #6366f1 100%);
+        color: white;
+        line-height: 1.3;
+        padding: 0.65rem 1rem;
+        border-radius: var(--radius);
+        box-shadow: 0 8px 24px rgba(126, 126, 219, 0.35);
+        transition:
+          transform 0.3s var(--ease-out),
+          box-shadow 0.3s var(--ease-out);
+      }
+
+      h3:hover {
+        transform: translateX(6px) scale(1.01);
+        box-shadow: 0 12px 32px rgba(126, 126, 219, 0.45);
+      }
+
+      .section-block {
+        margin-top: 1.25rem;
+      }
+
+      .section-block:first-child {
+        margin-top: 0;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+
+      table td {
+        padding: 0.65rem 0.85rem;
+        border: 1px solid rgba(126, 126, 219, 0.25);
+        transition: background 0.25s var(--ease-out);
+      }
+
+      table tr:first-child td {
+        background: rgba(126, 126, 219, 0.2);
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      table tr:not(:first-child):hover td {
+        background: rgba(126, 126, 219, 0.08);
+      }
+
+      ol {
+        margin: 0;
+        padding-left: 1.25rem;
+        color: var(--text-muted);
+        line-height: 1.75;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--text-muted);
+        line-height: 1.75;
+      }
+
+      @media (max-width: 520px) {
+        .site-header {
+          flex-direction: column;
+          height: auto;
+          padding: 0.65rem 1rem;
+          gap: 0.5rem;
+        }
+        body {
+          --header-h: 88px;
+        }
+        .site-nav {
+          justify-content: center;
+        }
       }
     </style>
 </head>
 <body>
+  <header class="site-header">
+    <span class="brand">杨忻然 · 简历</span>
+    <nav class="site-nav">
+      <a href="form.html">表单链接</a>
+      <a href="suibe-flex.html">学校官网</a>
+    </nav>
+  </header>
+
   <div class="container">
-    <h1>杨忻然</h1>
-    <div class="center">
-<img src="aaa.jpeg" alt="美羊羊"width = "200px">
+    <section class="hero">
+      <h1>杨忻然</h1>
+      <div class="avatar-wrap">
+        <img src="aaa.jpeg" alt="美羊羊" width="200">
+      </div>
+    </section>
+
+    <div class="card">
+      <hr>
+      <ul>
+        <li><b>性别:</b> 未知</li>
+        <li><b>年龄:</b> 20</li>
+        <li><b>邮箱:</b> yxryaokaoshu@gmail.com</li>
+      </ul>
+      <hr>
     </div>
 
-   <h4><a href="form.html">表单链接</a></h4>
-   <h4><a href="suibe-flex.html">学校官网</a></h4>
-  <hr>
-  <ul>
-    <li><b>性别:</b>未知 </li>
-    <li><b>年龄:</b>20</li>
-    <li><b>邮箱:</b>yxryaokaoshu@gmail.com</li>
-  </ul>
-  <hr>
-  <h3>教育背景</h3>
-  <table border="1"width ="100%" cellspacing=0> 
-    <tr>
-        <td>时间</td>
-        <td>学校</td>
-        <td>学历</td>
-    </tr>
-    <tr>
-        <td>2024.9-2028.6</td>
-        <td>上海对外经贸大学</td>
-        <td>本科</td>
-    </tr>
-  </table>
-  <h3>工作经历</h3>
- <ol>
-    <li>123456</li>
-    <li>123456</li>
-    <li>123456</li>
- </ol>
- <h3>自我介绍</h3>
- <p>xxxxxxxxxxxxxxxxx</p>
- </div>
+    <div class="card">
+      <div class="section-block">
+        <h3>教育背景</h3>
+        <div class="table-wrap">
+          <table>
+            <tr>
+              <td>时间</td>
+              <td>学校</td>
+              <td>学历</td>
+            </tr>
+            <tr>
+              <td>2024.9-2028.6</td>
+              <td>上海对外经贸大学</td>
+              <td>本科</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-block">
+        <h3>工作经历</h3>
+        <ol>
+          <li>123456</li>
+          <li>123456</li>
+          <li>123456</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-block">
+        <h3>自我介绍</h3>
+        <p>xxxxxxxxxxxxxxxxx</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
